@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Nav</h1>
+    </header>
+    <main>        
+<section>
+    <div class="properties">
+
+    </div>
+    <div class="table_crypto">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Last</th>
+                    <th>Buy</th>
+                    <th>Sell</th>
+                    <th>Volume</th>
+                    <th>Base Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let index = 0; index < list.length; index++) { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= list[index].name %></td>
+                        <td><%= list[index].last %></td>
+                        <td><%= list[index].buy %></td>
+                        <td><%= list[index].sell %></td>
+                        <td><%= list[index].volume %></td>
+                        <td><%= list[index].base_unit %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table> 
+    </div>   
+</section>
+</main>
+<footer>
+    <p>&copy; 2023 My Website</p>
+</footer>
+</body>
+</html>

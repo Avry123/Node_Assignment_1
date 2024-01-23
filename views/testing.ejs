@@ -1,0 +1,152 @@
+<!-- testing.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Page</title>
+    <link rel="stylesheet" type="text/css" href="/styles/testing.css">
+</head>
+    <meta http-equiv="refresh" content="60">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <p>Hodlinfo</p>
+            </div>
+            <div class="buttons">
+                <select id="currencySelect">
+                    <option>INR</option>
+                </select>
+                <select id="platformSelect">
+                    <% for (let i = 0; i < list.length; i++) { %>
+                        <option value="<%= list[i][0] %>">
+                            <%= list[i][0] %>
+                        </option>
+                    <% } %>
+                </select>
+                <button id="buyButton">Buy <%= list[0][0] %></button>
+            </div>
+            <div class="right-section">
+                <p id="timer"><span id="countdown">60</span></p>
+                <button id="telegram">Connect Telegram</button>
+                <button id="modeToggleBtn">Toggle Mode</button>
+            </div>
+        </nav>
+    </header>
+    <section>
+        <div class="name_price">
+            <h1 id="crypto_price">Crypto Price</h1>
+            <p id="crypto_name">Crypto Currency is btcinr</p>
+        </div>
+        <table class="hide">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Platform</th>
+                    <th>Last Traded Price</th>
+                    <th>Buy/Sell</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let i = 0; i < list.length; i++) { %>
+                    <tr>
+                        <td><%= i + 1 %></td>
+                        <td><%= list[i][0] %></td>
+                        <td id="<%= list[i][0] %>"><%= list[i][1].last %></td>
+                        <td><%= list[i][1].buy %>/<%= list[i][1].sell %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Last</th>
+                    <th>Buy</th>
+                    <th>Sell</th>
+                    <th>Volume</th>
+                    <th>Base Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let index = 0; index <  list_1.length; index++) { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%=  list_1[index].name %></td>
+                        <td class='<%=  list_1[index].name %>'><%=  list_1[index].last %></td>
+                        <td><%=  list_1[index].buy %></td>
+                        <td><%=  list_1[index].sell %></td>
+                        <td><%=  list_1[index].volume %></td>
+                        <td><%=  list_1[index].base_unit %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </section>
+    <!-- You can include your table or any other elements here -->
+    <footer>
+
+    </footer>
+    <script> 
+    // Dark Mode
+    document.addEventListener('DOMContentLoaded', function () {
+            const modeToggleBtn = document.getElementById('modeToggleBtn');
+            const body = document.body;
+
+            // Event listener for the mode toggle button
+            modeToggleBtn.addEventListener('click', function () {
+                // Toggle the 'dark-mode' class on the body
+                body.classList.toggle('dark-mode');
+            });
+        });
+    // Dark Mode
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get references to the select and button elements
+            const platformSelect = document.getElementById('platformSelect');
+            const buyButton = document.getElementById('buyButton');
+            const currency_name = document.getElementById('crypto_name');
+            const currency_price = document.getElementById('crypto_price');
+            let currency_value;
+            currency_value = document.getElementById('btcinr');
+            currency_price.innerText =  `Rs  ${currency_value.innerText}`;
+            // Add event listener to the platform select to update button text
+            platformSelect.addEventListener('change', function () {
+                const selectedValue = platformSelect.value;
+                // testing
+                if (selectedValue) {
+                    currency_value = document.getElementById(selectedValue);
+                } 
+                // testing
+                buyButton.innerText = `Buy ${selectedValue}`;
+                currency_name.innerText = `Currency Name is ${selectedValue}`;
+                currency_price.innerText =  `Rs  ${currency_value.innerText}`;
+            });
+        });
+
+        // Countdown timer logic
+        let secondsRemaining = 60;
+
+        function updateCountdown() {
+            document.getElementById('countdown').innerText = secondsRemaining;
+            secondsRemaining--;
+
+            if (secondsRemaining < 0) {
+                // Refresh the page when the countdown reaches 0
+                location.reload();
+            } else {
+                // Schedule the next update after 1 second
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+
+        // Initial call to start the countdown
+        updateCountdown();
+    </script>
+</body>
+</html>
